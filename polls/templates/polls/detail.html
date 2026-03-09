@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Результати</title>
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+</head>
+<body>
+    <h1>{{ question.question_text }}</h1>
+
+    <ul>
+    {% for choice in question.choice_set.all %}
+        <li>
+            <strong>{{ choice.choice_text }}</strong> — {{ choice.votes }} голос(ів)
+        </li>
+    {% endfor %}
+    </ul>
+
+    <br>
+    <a href="/">Повернутися до списку питань</a>
+</body>
+</html>

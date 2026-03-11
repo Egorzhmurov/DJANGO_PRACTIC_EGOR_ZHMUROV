@@ -3,21 +3,33 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Результати</title>
+    <title>Голосування</title>
     <link rel="stylesheet" href="{% static 'polls/style.css' %}">
 </head>
 <body>
+
+<div class="container">
     <h1>{{ question.question_text }}</h1>
 
-    <ul>
-    {% for choice in question.choice_set.all %}
-        <li>
-            <strong>{{ choice.choice_text }}</strong> — {{ choice.votes }} голос(ів)
-        </li>
-    {% endfor %}
-    </ul>
+    {% if error_message %}<p class="error"><strong>{{ error_message }}</strong></p>{% endif %}
 
-    <br>
-    <a href="/">Повернутися до списку питань</a>
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+
+        <div class="choices-list">
+            {% for choice in question.choice_set.all %}
+                <div class="choice-item">
+                    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+                </div>
+            {% endfor %}
+        </div>
+
+        <input type="submit" value="Проголосувать" class="vote-button">
+    </form>
+
+    <a href="{% url 'polls:index' %}" class="back-link">← Назад к списку</a>
+</div>
+
 </body>
 </html>

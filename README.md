@@ -1,5 +1,5 @@
 # DJANGO_PRACTIC_EGOR_ZHMUROV
-My first JANGO project
+My first DJANGO project
 
 ## 🛠️ Початок роботи (Setup Instructions)
 
